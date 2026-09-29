@@ -16,7 +16,7 @@ from .src.utils import extract_target_id, parse_trade_args
     "astrbot_plugin_qun_stock",
     "Yupomii",
     "群友股票交易所：行为资产证券化与赛博操盘手",
-    "1.0.1",
+    "1.0.2",
 )
 class QunStockPlugin(Star):
     def __init__(self, context: Context, config: dict | None = None):

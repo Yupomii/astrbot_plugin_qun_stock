@@ -2,6 +2,6 @@ name: astrbot_plugin_qun_stock
 display_name: 群友证券交易所 (Cyber Stock)
 desc: 将群友与行为资产证券化的赛博股票市场。支持IPO上市、ST戴帽与重组、概念板块连坐、做空杠杆、恶意收购控股、金融黑客道具及闭关停牌机制。
 help: /股市 | /查股价 @某人 | /买入 @某人 数量 | /卖出 @某人 数量 | /做空 @某人 数量 | /持仓 | /打工 | /天台榜 | /板块行情 | /停牌申请 | /复牌申请 | /重组路演 申请书 | /道具商城 | /使用道具 <名称> @某人
-version: 1.0.1
+version: 1.0.2
 author: Yupomii
 repo: https://github.com/Yupomii/astrbot_plugin_qun_stock
