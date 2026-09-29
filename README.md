@@ -1,5 +1,9 @@
 # astrbot_plugin_qun_stock (群友股票交易所)
 
+<div align="center">
+  <img src="https://count.getloli.com/@Yupomii_qun_stock?theme=gelbooru" alt="Moe Counter" />
+</div>
+
 将群友与日常水群行为全面证券化的赛博金融市场插件。支持 IPO 敲钟、ST 戴帽与破产重组、概念板块连坐暴雷、恶意收购控股、金融黑客道具商城及闭关停牌机制。
 
 ## 核心机制
@@ -33,4 +37,4 @@
 
 ## 作者
 
-- **Author**: Kirizuki
+- **Author**: Yupomii
