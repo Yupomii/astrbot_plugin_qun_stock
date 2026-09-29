@@ -16,7 +16,7 @@ from .src.utils import extract_target_id, parse_trade_args
     "astrbot_plugin_qun_stock",
     "Yupomii",
     "群友股票交易所：行为资产证券化与赛博操盘手",
-    "1.0.2",
+    "1.0.3",
 )
 class QunStockPlugin(Star):
     def __init__(self, context: Context, config: dict | None = None):
@@ -120,13 +120,19 @@ class QunStockPlugin(Star):
 
         stock = self.db.get_stock(target_id)
         if not stock:
-            card_img = self.renderer.render_card(
-                title="【未收录上市公司】",
-                subtitle="股票代码查询无结果",
-                content_lines=[f"未在交易所查询到公司：“{target_id}”！", "对方名下资产可能尚未IPO上市。"]
-            )
-            yield event.image_result(card_img)
-            return
+            # 自动绿色通道保荐
+            if target_id.isdigit():
+                target_name = f"群友_{target_id[-4:]}"
+                symbol = target_name[:4]
+                stock = self.db.create_stock(target_id, target_name, symbol, issue_price=10.0, total_shares=10000, sector="二次元纯度")
+            else:
+                card_img = self.renderer.render_card(
+                    title="【未收录上市公司】",
+                    subtitle="股票代码查询无结果",
+                    content_lines=[f"未在交易所查询到公司：“{target_id}”！", "对方名下资产可能尚未IPO上市。"]
+                )
+                yield event.image_result(card_img)
+                return
 
         # 检查ST状态
         _, _, _ = self.engine.check_st_and_delist(stock)
@@ -198,11 +204,18 @@ class QunStockPlugin(Star):
         user_id = str(event.get_sender_id())
         stock = self.db.get_stock(target_key)
         if not stock:
-            card_img = self.renderer.render_card(
-                title="【买单被拒】", subtitle="未找到目标标的", content_lines=[f"未找到目标公司“{target_key}”！"]
-            )
-            yield event.image_result(card_img)
-            return
+            # 尝试通过绿色通道自动保荐上市
+            target_id = extract_target_id(event, raw_target) or (target_key if target_key.isdigit() else None)
+            if target_id:
+                target_name = f"群友_{target_id[-4:]}"
+                symbol = target_name[:4]
+                stock = self.db.create_stock(target_id, target_name, symbol, issue_price=10.0, total_shares=10000, sector="二次元纯度")
+            else:
+                card_img = self.renderer.render_card(
+                    title="【买单被拒】", subtitle="未找到目标标的", content_lines=[f"未找到目标公司“{target_key}”！请确认对方账号。"]
+                )
+                yield event.image_result(card_img)
+                return
 
         if stock["is_delisted"] or stock["is_suspended"]:
             reason = "已破产退市" if stock["is_delisted"] else f"处于停牌保护中（{stock['suspend_reason']}）"

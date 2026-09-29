@@ -88,6 +88,21 @@ class StockDB:
                 updated_at REAL NOT NULL
             )
             """)
+
+            # 初始默认敲钟上市保荐
+            c.execute("SELECT COUNT(*) as count FROM stocks")
+            if c.fetchone()["count"] == 0:
+                now_ts = time.time()
+                initial_stocks = [
+                    ("2100576536", "雾月喵", "雾月", 10.0, 10.0, 10000, 10000, "二次元纯度", 0, 0, 0, now_ts),
+                    ("2201462529", "雨落喵~", "雨落", 10.0, 10.0, 10000, 10000, "二次元纯度", 0, 0, 0, now_ts)
+                ]
+                c.executemany("""
+                INSERT OR IGNORE INTO stocks 
+                (stock_id, name, symbol, price, issue_price, total_shares, circulating_shares, sector, is_st, is_delisted, is_suspended, last_active_time)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, initial_stocks)
+
             conn.commit()
 
     # ---------------- 股民账户操作 ----------------
