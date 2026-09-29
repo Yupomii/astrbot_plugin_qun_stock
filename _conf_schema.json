@@ -1,0 +1,47 @@
+{
+  "enable": {
+    "description": "是否开启群友股票交易所",
+    "type": "bool",
+    "default": true
+  },
+  "initial_cash": {
+    "description": "新股民初始资金（赛博金币）",
+    "type": "int",
+    "default": 10000
+  },
+  "daily_salary": {
+    "description": "每日签到打工补贴金额",
+    "type": "int",
+    "default": 1000
+  },
+  "trade_tax_rate": {
+    "description": "交易印花税费率 (0.001 - 0.05)",
+    "type": "float",
+    "default": 0.01
+  },
+  "price_limit_rate": {
+    "description": "单次常规事件最大涨跌幅限制 (涨跌停板)",
+    "type": "float",
+    "default": 0.20
+  },
+  "st_threshold": {
+    "description": "跌破发行价百分比触发ST戴帽 (如0.2表示跌破20%)",
+    "type": "float",
+    "default": 0.20
+  },
+  "st_inactive_days": {
+    "description": "连续未发言触发ST戴帽的天数",
+    "type": "int",
+    "default": 3
+  },
+  "takeover_threshold": {
+    "description": "触发恶意收购控股的持股比例",
+    "type": "float",
+    "default": 0.50
+  },
+  "dividend_tax_rate": {
+    "description": "控股大股东对子公司签到打工抽水比例",
+    "type": "float",
+    "default": 0.20
+  }
+}
